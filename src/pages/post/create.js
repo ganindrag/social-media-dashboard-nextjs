@@ -1,6 +1,6 @@
 import { Button, Form, Select, Input } from "antd";
 import { Navbar } from "@/pages/index.js";
-import withNavbar from "@/hoc/withNavbar";
+import withNavbar from "@/hocs/withNavbar";
 
 const Create = () => {
   return (

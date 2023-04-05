@@ -1,5 +1,5 @@
 import { useState, useEffect } from "react";
-import withNavbar from "@/hoc/withNavbar";
+import withNavbar from "@/hocs/withNavbar";
 import { getUsers } from "@/services/typicode";
 import { Table, Divider } from "antd";
 import Link from "next/link";

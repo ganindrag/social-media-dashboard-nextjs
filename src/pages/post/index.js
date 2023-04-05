@@ -1,7 +1,7 @@
 import { Table, Divider, Button, Form, Select } from "antd";
 import { Navbar } from "@/pages/index.js";
 import Link from "next/link";
-import withNavbar from "@/hoc/withNavbar";
+import withNavbar from "@/hocs/withNavbar";
 
 const users = { 1: "Leanne Graham", 2: "Ervin Howell" };
 

@@ -2,7 +2,7 @@ import { Table, Divider, Button, Form, Select, Modal } from "antd";
 import { Navbar } from "@/pages/index.js";
 import Link from "next/link";
 import { useState } from "react";
-import withNavbar from "@/hoc/withNavbar";
+import withNavbar from "@/hocs/withNavbar";
 
 const dataAlbum = {
   userId: 1,

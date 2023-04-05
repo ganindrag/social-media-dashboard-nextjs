@@ -38,3 +38,7 @@ export const getAlbums = (userId) => {
   const queryParam = userId ? `?userId=${userId}` : "";
   return fetcher(`albums${queryParam}`);
 };
+
+export const getAlbum = (id) => fetcher(`albums/${id}`);
+
+export const getPhotos = (albumId) => fetcher(`albums/${albumId}/photos`);

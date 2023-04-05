@@ -83,7 +83,7 @@ export default function Comment({ postId }) {
         <h3 className="text-base font-semibold">Comments</h3>
         <Button onClick={() => setOpen(true)}>Add</Button>
       </div>
-      <Table dataSource={dataSource} columns={columns} />
+      <Table dataSource={dataSource} columns={columns} rowKey="id" />
       <FormComment
         open={open}
         close={closeFormComment}

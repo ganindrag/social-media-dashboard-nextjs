@@ -72,7 +72,7 @@ const Album = () => {
           }
         />
       </Form.Item>
-      <Table dataSource={dataSource} columns={columns} />
+      <Table dataSource={dataSource} columns={columns} rowKey="id" />
     </>
   );
 };

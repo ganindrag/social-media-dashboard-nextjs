@@ -54,7 +54,7 @@ const User = () => {
   return (
     <>
       <h1 className="text-xl font-bold py-3">User</h1>
-      <Table dataSource={dataSource} columns={columns} pagination={false} />
+      <Table dataSource={dataSource} columns={columns} rowKey="id" />
     </>
   );
 };

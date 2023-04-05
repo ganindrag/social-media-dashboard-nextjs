@@ -4,36 +4,6 @@ import Link from "next/link";
 import { useState } from "react";
 import withNavbar from "@/hocs/withNavbar";
 
-const dataAlbum = {
-  userId: 1,
-  id: 1,
-  title: "quidem molestiae enim",
-};
-
-const dataPhoto = [
-  {
-    albumId: 1,
-    id: 1,
-    title: "accusamus beatae ad facilis cum similique qui sunt",
-    url: "https://via.placeholder.com/600/92c952",
-    thumbnailUrl: "https://via.placeholder.com/150/92c952",
-  },
-  {
-    albumId: 1,
-    id: 2,
-    title: "reprehenderit est deserunt velit ipsam",
-    url: "https://via.placeholder.com/600/771796",
-    thumbnailUrl: "https://via.placeholder.com/150/771796",
-  },
-  {
-    albumId: 1,
-    id: 3,
-    title: "officia porro iure quia iusto qui ipsa ut modi",
-    url: "https://via.placeholder.com/600/24f355",
-    thumbnailUrl: "https://via.placeholder.com/150/24f355",
-  },
-];
-
 const Photo = () => {
   const [open, setOpen] = useState(false);
   const [viewedPhoto, setViewedPhoto] = useState();
@@ -54,6 +24,7 @@ const Photo = () => {
               cover={<img alt="example" src={photo.thumbnailUrl} />}
               hoverable
               onClick={() => openImage(photo)}
+              key={photo.id}
             >
               <Card.Meta title={photo.title} />
             </Card>

@@ -1,9 +1,10 @@
 import { Button, Form, Select, Input } from "antd";
 import { Navbar } from "@/pages/index.js";
+import withNavbar from "@/hoc/withNavbar";
 
-export default function Create() {
+const Create = () => {
   return (
-    <Navbar>
+    <>
       <div className="flex justify-between py-3">
         <h1 className="text-xl font-bold">Create Post</h1>
         <Button>Save</Button>
@@ -25,6 +26,8 @@ export default function Create() {
           <Input.TextArea rows={4} />
         </Form.Item>
       </Form>
-    </Navbar>
+    </>
   );
-}
+};
+
+export default withNavbar(Create, "post");

@@ -2,6 +2,7 @@ import { Table, Divider, Button, Modal, Form, Input } from "antd";
 import { Navbar } from "@/pages/index.js";
 import Link from "next/link";
 import { useState } from "react";
+import withNavbar from "@/hoc/withNavbar";
 
 const dataPost = {
   userId: 1,
@@ -61,10 +62,10 @@ const columns = [
   },
 ];
 
-export default function View() {
+const View = () => {
   const [open, setOpen] = useState(true);
   return (
-    <Navbar>
+    <>
       <div className="flex justify-between py-3">
         <h1 className="text-xl font-bold">Post</h1>
       </div>
@@ -100,6 +101,8 @@ export default function View() {
           </Form.Item>
         </Form>
       </Modal>
-    </Navbar>
+    </>
   );
-}
+};
+
+export default withNavbar(View, "post");

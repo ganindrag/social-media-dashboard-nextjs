@@ -2,6 +2,7 @@ import { Table, Divider, Button, Form, Select, Modal } from "antd";
 import { Navbar } from "@/pages/index.js";
 import Link from "next/link";
 import { useState } from "react";
+import withNavbar from "@/hoc/withNavbar";
 
 const dataAlbum = {
   userId: 1,
@@ -33,10 +34,10 @@ const dataPhoto = [
   },
 ];
 
-export default function Album() {
+const Photo = () => {
   const [open, setOpen] = useState(true);
   return (
-    <Navbar>
+    <>
       <div className="flex justify-between py-3">
         <h1 className="text-xl font-bold">Album Photos</h1>
       </div>
@@ -62,6 +63,8 @@ export default function Album() {
           className="w-full h-full object-contain object-center"
         />
       </Modal>
-    </Navbar>
+    </>
   );
-}
+};
+
+export default withNavbar(Photo, "album");

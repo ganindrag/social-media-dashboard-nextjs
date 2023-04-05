@@ -1,6 +1,6 @@
 import { Table, Divider, Button, Form, Select } from "antd";
-import { Navbar } from "@/pages/index.js";
 import Link from "next/link";
+import withNavbar from "@/hoc/withNavbar";
 
 const users = { 1: "Leanne Graham", 2: "Ervin Howell" };
 
@@ -51,9 +51,9 @@ const columns = [
   },
 ];
 
-export default function Album() {
+const Album = () => {
   return (
-    <Navbar>
+    <>
       <div className="flex justify-between py-3">
         <h1 className="text-xl font-bold">Album</h1>
       </div>
@@ -63,6 +63,8 @@ export default function Album() {
         </Select>
       </Form.Item>
       <Table dataSource={dataSource} columns={columns} />
-    </Navbar>
+    </>
   );
-}
+};
+
+export default withNavbar(Album, "album");

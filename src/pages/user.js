@@ -1,5 +1,5 @@
+import withNavbar from "@/hoc/withNavbar";
 import { Table, Divider } from "antd";
-import { Navbar } from ".";
 import Link from "next/link";
 
 const dataSource = [
@@ -93,11 +93,13 @@ const columns = [
   },
 ];
 
-export default function User() {
+const User = () => {
   return (
-    <Navbar>
+    <>
       <h1 className="text-xl font-bold py-3">User</h1>
       <Table dataSource={dataSource} columns={columns} />
-    </Navbar>
+    </>
   );
-}
+};
+
+export default withNavbar(User, "user");

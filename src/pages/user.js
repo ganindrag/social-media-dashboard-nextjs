@@ -1,4 +1,6 @@
+import { useState, useEffect } from "react";
 import withNavbar from "@/hoc/withNavbar";
+import { getUsers } from "@/services/typicode";
 import { Table, Divider } from "antd";
 import Link from "next/link";
 
@@ -94,10 +96,14 @@ const columns = [
 ];
 
 const User = () => {
+  const [dataSource, setDataSource] = useState([]);
+  useEffect(() => {
+    getUsers().then((data) => setDataSource(data));
+  }, []);
   return (
     <>
       <h1 className="text-xl font-bold py-3">User</h1>
-      <Table dataSource={dataSource} columns={columns} />
+      <Table dataSource={dataSource} columns={columns} pagination={false} />
     </>
   );
 };

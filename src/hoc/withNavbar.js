@@ -24,12 +24,12 @@ export default function withNavbar(WrappedComponent, activeMenu) {
       push(e.key);
     };
     return (
-      <div className="max-w-screen-lg m-auto">
+      <div className="max-w-screen-lg m-auto px-3">
         <Menu
           onClick={onClick}
           mode="horizontal"
           items={items}
-          selectedKeys={[activeMenu]}
+          selectedKeys={[`/${activeMenu}`]}
           className="mb-10"
         />
         <WrappedComponent {...props}>{children}</WrappedComponent>

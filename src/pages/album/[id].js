@@ -1,4 +1,4 @@
-import { Table, Divider, Button, Form, Select, Modal } from "antd";
+import { Card, Modal } from "antd";
 import { Navbar } from "@/pages/index.js";
 import Link from "next/link";
 import { useState } from "react";
@@ -35,7 +35,12 @@ const dataPhoto = [
 ];
 
 const Photo = () => {
-  const [open, setOpen] = useState(true);
+  const [open, setOpen] = useState(false);
+  const [viewedPhoto, setViewedPhoto] = useState();
+  const openImage = (data) => {
+    setOpen(true);
+    setViewedPhoto(data);
+  };
   return (
     <>
       <div className="flex justify-between py-3">
@@ -45,10 +50,13 @@ const Photo = () => {
       <div className="grid grid-cols-4 gap-4">
         {dataPhoto.map((photo) => {
           return (
-            <img
-              src={photo.thumbnailUrl}
-              className="w-full h-full object-contain object-center"
-            />
+            <Card
+              cover={<img alt="example" src={photo.thumbnailUrl} />}
+              hoverable
+              onClick={() => openImage(photo)}
+            >
+              <Card.Meta title={photo.title} />
+            </Card>
           );
         })}
       </div>
@@ -56,10 +64,10 @@ const Photo = () => {
         open={open}
         onCancel={() => setOpen(false)}
         footer={null}
-        title="officia porro iure quia iusto qui ipsa ut modi"
+        title={viewedPhoto?.title}
       >
         <img
-          src="https://via.placeholder.com/600/24f355"
+          src={viewedPhoto?.url}
           className="w-full h-full object-contain object-center"
         />
       </Modal>

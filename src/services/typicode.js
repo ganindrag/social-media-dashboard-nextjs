@@ -33,3 +33,8 @@ export const updateComment = (id, data) =>
 
 export const deleteComment = (commentId) =>
   fetcher(`comments/${commentId}`, { method: "DELETE" });
+
+export const getAlbums = (userId) => {
+  const queryParam = userId ? `?userId=${userId}` : "";
+  return fetcher(`albums${queryParam}`);
+};

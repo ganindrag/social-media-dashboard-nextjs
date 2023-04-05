@@ -1,76 +1,99 @@
-import { Table, Divider, Button, Form, Select } from "antd";
-import { Navbar } from "@/pages/index.js";
+import { Table, Divider, Button, Form, Popconfirm, notification } from "antd";
 import Link from "next/link";
+import { useRouter } from "next/router";
 import withNavbar from "@/hocs/withNavbar";
-
-const users = { 1: "Leanne Graham", 2: "Ervin Howell" };
-
-const dataSource = [
-  {
-    userId: 1,
-    id: 1,
-    title:
-      "sunt aut facere repellat provident occaecati excepturi optio reprehenderit",
-    body: "quia et suscipit\nsuscipit recusandae consequuntur expedita et cum\nreprehenderit molestiae ut ut quas totam\nnostrum rerum est autem sunt rem eveniet architecto",
-  },
-  {
-    userId: 1,
-    id: 2,
-    title: "qui est esse",
-    body: "est rerum tempore vitae\nsequi sint nihil reprehenderit dolor beatae ea dolores neque\nfugiat blanditiis voluptate porro vel nihil molestiae ut reiciendis\nqui aperiam non debitis possimus qui neque nisi nulla",
-  },
-  {
-    userId: 2,
-    id: 15,
-    title: "eveniet quod temporibus",
-    body: "reprehenderit quos placeat\nvelit minima officia dolores impedit repudiandae molestiae nam\nvoluptas recusandae quis delectus\nofficiis harum fugiat vitae",
-  },
-];
-
-const columns = [
-  {
-    title: "Created By",
-    dataIndex: "userId",
-    key: "userId",
-    render(userid) {
-      return users[userid];
-    },
-  },
-  {
-    title: "Title",
-    dataIndex: "title",
-    key: "title",
-    ellipsis: true,
-  },
-  {
-    title: "Actions",
-    key: "actions",
-    align: "center",
-    render: (_, record) => {
-      return (
-        <>
-          <Link href={`post/${record.id}`}>View</Link>
-          <Divider type="vertical" />
-          <Link href={`post/update/${record.id}`}>Update</Link>
-          <Divider type="vertical" />
-          <Link href={`post/delete/${record.id}`}>Delete</Link>
-        </>
-      );
-    },
-  },
-];
+import { useEffect, useState } from "react";
+import { getPosts, getUsers, deletePost } from "@/services/typicode";
+import CmbUsers from "@/components/CmbUsers";
 
 const Post = () => {
+  const router = useRouter();
+  const [filterUserId, setFilterUserId] = useState();
+  const [dataSource, setDataSource] = useState([]);
+  const [users, setusers] = useState({});
+
+  useEffect(() => {
+    setFilterUserId(router.query.userId);
+  }, [router.query.userId]);
+
+  useEffect(() => {
+    getUsers()
+      .then((data) =>
+        setusers((userState) => {
+          if (!userState) userState = {};
+          data.forEach((user) => (userState[user.id] = user.name));
+          return userState;
+        })
+      )
+      .then(() => getPosts(filterUserId).then((data) => setDataSource(data)));
+  }, [filterUserId]);
+
+  const doDeletePost = (id) => {
+    deletePost(id).then(() => {
+      notification.success({
+        message: "Success delete post",
+        placement: "bottomLeft",
+      });
+    });
+  };
+
+  const columns = [
+    {
+      title: "Created By",
+      dataIndex: "userId",
+      key: "userId",
+      render(userid) {
+        return users[userid];
+      },
+    },
+    {
+      title: "Title",
+      dataIndex: "title",
+      key: "title",
+      ellipsis: true,
+    },
+    {
+      title: "Actions",
+      key: "actions",
+      align: "center",
+      render: (_, record) => {
+        return (
+          <>
+            <Link href={`post/${record.id}`}>View</Link>
+            <Divider type="vertical" />
+            <Link href={`post/update/${record.id}`}>Update</Link>
+            <Divider type="vertical" />
+            <Popconfirm
+              title="Delete Post"
+              description="Are you sure to delete this post?"
+              onConfirm={() => doDeletePost(record.id)}
+              okText="Yes"
+              cancelText="No"
+              okType="default"
+            >
+              <button>Delete</button>
+            </Popconfirm>
+          </>
+        );
+      },
+    },
+  ];
+
   return (
     <>
       <div className="flex justify-between py-3">
         <h1 className="text-xl font-bold">Post</h1>
-        <Button>Create</Button>
+        <Button onClick={() => router.push("/post/create")}>Create</Button>
       </div>
       <Form.Item label="Created by">
-        <Select placeholder="All">
-          <Select.Option value="demo">Demo</Select.Option>
-        </Select>
+        <CmbUsers
+          onChange={(userId) => setFilterUserId(userId)}
+          value={
+            filterUserId
+              ? { label: users[filterUserId], value: filterUserId }
+              : null
+          }
+        />
       </Form.Item>
       <Table dataSource={dataSource} columns={columns} />
     </>
